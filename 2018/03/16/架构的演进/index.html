@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本框架，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。  最初的架构刚来时的架构微服务的架构之前自己业余时间基于springCloud设想的微服务架构 -&amp;gt; here 对于架构的演进看法">
+<meta name="description" content="想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本框架，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。  最初的架构 用户门户（网站） 单体大应用后台 敏感数据EBS 会员数据siebel   在这简单的架构下运转着自己的业务，这时，我还未进入这个项目中  目前架构 用户门户 网站，app、微信企业号(coding) 前后端分离规划   单体大">
 <meta name="keywords" content="单体应用,分布式,前后端分离,微服务">
 <meta property="og:type" content="article">
 <meta property="og:title" content="架构的演进">
 <meta property="og:url" content="http://yoursite.com/2018/03/16/架构的演进/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本框架，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。  最初的架构刚来时的架构微服务的架构之前自己业余时间基于springCloud设想的微服务架构 -&amp;gt; here 对于架构的演进看法">
+<meta property="og:description" content="想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本框架，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。  最初的架构 用户门户（网站） 单体大应用后台 敏感数据EBS 会员数据siebel   在这简单的架构下运转着自己的业务，这时，我还未进入这个项目中  目前架构 用户门户 网站，app、微信企业号(coding) 前后端分离规划   单体大">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-16T11:44:22.000Z">
+<meta property="og:updated_time" content="2018-03-17T13:12:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="架构的演进">
-<meta name="twitter:description" content="想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本框架，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。  最初的架构刚来时的架构微服务的架构之前自己业余时间基于springCloud设想的微服务架构 -&amp;gt; here 对于架构的演进看法">
+<meta name="twitter:description" content="想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本框架，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。  最初的架构 用户门户（网站） 单体大应用后台 敏感数据EBS 会员数据siebel   在这简单的架构下运转着自己的业务，这时，我还未进入这个项目中  目前架构 用户门户 网站，app、微信企业号(coding) 前后端分离规划   单体大">
 
 
 
@@ -323,8 +323,49 @@
         <blockquote>
 <p>想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本框架，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。</p>
 </blockquote>
-<h2 id="最初的架构"><a href="#最初的架构" class="headerlink" title="最初的架构"></a>最初的架构</h2><h2 id="刚来时的架构"><a href="#刚来时的架构" class="headerlink" title="刚来时的架构"></a>刚来时的架构</h2><h2 id="微服务的架构"><a href="#微服务的架构" class="headerlink" title="微服务的架构"></a>微服务的架构</h2><p>之前自己业余时间基于springCloud设想的微服务架构 -&gt; <a href="https://github.com/springCloudTest/DocSpringCloud" target="_blank" rel="noopener">here</a></p>
-<h2 id="对于架构的演进看法"><a href="#对于架构的演进看法" class="headerlink" title="对于架构的演进看法"></a>对于架构的演进看法</h2>
+<h2 id="最初的架构"><a href="#最初的架构" class="headerlink" title="最初的架构"></a>最初的架构</h2><ul>
+<li>用户门户（网站）</li>
+<li>单体大应用后台</li>
+<li>敏感数据EBS</li>
+<li>会员数据siebel</li>
+</ul>
+<blockquote>
+<p>在这简单的架构下运转着自己的业务，这时，我还未进入这个项目中</p>
+</blockquote>
+<h2 id="目前架构"><a href="#目前架构" class="headerlink" title="目前架构"></a>目前架构</h2><ul>
+<li>用户门户<ol>
+<li>网站，app、微信企业号(coding)</li>
+<li>前后端分离规划</li>
+</ol>
+</li>
+<li>单体大应用后台<ol>
+<li>按业务拆分为多个子应用</li>
+<li>再由一个入口应用接入各个子应用，感知上依然为单应用-尽量降低用户习惯影响</li>
+<li>被子应用依赖的授权认证依赖包core（调用用户信息认证，接口token认证）</li>
+<li>独立的用户信息应用（可手工增删改用户，但多为接口调用）</li>
+<li>增加oauth-server，作为各个应用的token凭证分发</li>
+</ol>
+</li>
+<li>敏感数据EBS</li>
+<li>会员数据sieble<ol>
+<li>中台门户</li>
+<li>应用拆分（实现方式重构<code>springCloud微服务架构</code>coding）</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>刚进项目时(2016.08)由于了解得不多，也是个新人，这个情况下，当时我在各个子应用中流转，包括用户门户、后台子应用、会员中台门户等，然后后面也参与到了做前后端分离的支撑工作，独立oauth-server的开发工作，虽然授权认证依赖包core对于token的认证并非我完成，但后续也接手了，还有入口应用等。</p>
+</blockquote>
+<h2 id="微服务的架构"><a href="#微服务的架构" class="headerlink" title="微服务的架构"></a>微服务的架构</h2><ul>
+<li>之前自己业余时间基于springCloud设想的微服务架构 -&gt; <a href="https://github.com/springCloudTest/DocSpringCloud" target="_blank" rel="noopener">here</a></li>
+</ul>
+<blockquote>
+<p>对于已被拆分的子应用间通过api调用，越来越多子应用互相间通过api的调用使得自应用间接口混乱不堪<code>&gt;</code>需要服务注册，并且高可用，然后就被告知了可以转型微服务</p>
+</blockquote>
+<h2 id="对于架构的演进看法"><a href="#对于架构的演进看法" class="headerlink" title="对于架构的演进看法"></a>对于架构的演进看法</h2><blockquote>
+<p>TODO</p>
+</blockquote>
+
       
     </div>
     
@@ -504,7 +545,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#最初的架构"><span class="nav-number">1.</span> <span class="nav-text">最初的架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刚来时的架构"><span class="nav-number">2.</span> <span class="nav-text">刚来时的架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微服务的架构"><span class="nav-number">3.</span> <span class="nav-text">微服务的架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对于架构的演进看法"><span class="nav-number">4.</span> <span class="nav-text">对于架构的演进看法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#最初的架构"><span class="nav-number">1.</span> <span class="nav-text">最初的架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目前架构"><span class="nav-number">2.</span> <span class="nav-text">目前架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微服务的架构"><span class="nav-number">3.</span> <span class="nav-text">微服务的架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对于架构的演进看法"><span class="nav-number">4.</span> <span class="nav-text">对于架构的演进看法</span></a></li></ol></div>
             
 
           </div>

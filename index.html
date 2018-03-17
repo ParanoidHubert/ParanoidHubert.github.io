@@ -320,53 +320,25 @@
       
         
           
-            <blockquote>
-<p>想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本框架，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。</p>
-</blockquote>
-<h2 id="最初的架构"><a href="#最初的架构" class="headerlink" title="最初的架构"></a>最初的架构</h2><ul>
-<li>用户门户（网站）</li>
-<li>单体大应用后台</li>
-<li>敏感数据EBS</li>
-<li>会员数据siebel</li>
-</ul>
-<blockquote>
-<p>在这简单的架构下运转着自己的业务，这时，我还未进入这个项目中</p>
-</blockquote>
-<h2 id="目前架构"><a href="#目前架构" class="headerlink" title="目前架构"></a>目前架构</h2><ul>
-<li>用户门户<ol>
-<li>网站，app、微信企业号(coding)</li>
-<li>前后端分离规划</li>
-</ol>
-</li>
-<li>单体大应用后台<ol>
-<li>按业务拆分为多个子应用</li>
-<li>再由一个入口应用接入各个子应用，感知上依然为单应用-尽量降低用户习惯影响</li>
-<li>被子应用依赖的授权认证依赖包core（调用用户信息认证，接口token认证）</li>
-<li>独立的用户信息应用（可手工增删改用户，但多为接口调用）</li>
-<li>增加oauth-server，作为各个应用的token凭证分发</li>
-</ol>
-</li>
-<li>敏感数据EBS</li>
-<li>会员数据sieble<ol>
-<li>中台门户</li>
-<li>应用拆分（实现方式重构<code>springCloud微服务架构</code>coding）</li>
-</ol>
-</li>
-</ul>
-<blockquote>
-<p>刚进项目时(2016.08)由于了解得不多，也是个新人，这个情况下，当时我在各个子应用中流转，包括用户门户、后台子应用、会员中台门户等，然后后面也参与到了做前后端分离的支撑工作，独立oauth-server的开发工作，虽然授权认证依赖包core对于token的认证并非我完成，但后续也接手了，还有入口应用等。</p>
-</blockquote>
-<h2 id="微服务的架构"><a href="#微服务的架构" class="headerlink" title="微服务的架构"></a>微服务的架构</h2><ul>
-<li>之前自己业余时间基于springCloud设想的微服务架构 -&gt; <a href="https://github.com/springCloudTest/DocSpringCloud" target="_blank" rel="noopener">here</a></li>
-</ul>
-<blockquote>
-<p>对于已被拆分的子应用间通过api调用，越来越多子应用互相间通过api的调用使得自应用间接口混乱不堪<code>&gt;</code>需要服务注册，并且高可用，然后就被告知了可以转型微服务</p>
-</blockquote>
-<h2 id="对于架构的演进看法"><a href="#对于架构的演进看法" class="headerlink" title="对于架构的演进看法"></a>对于架构的演进看法</h2><blockquote>
-<p>TODO</p>
-</blockquote>
-
           
+想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本思路，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。
+
+最初的架构
+用户门户（网站）
+单体大应用后台（内部管理系统）
+敏感数据EBS
+会员数据siebel
+
+
+在这简单的架构下运转着自己的业务，这
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/16/架构的演进/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -484,16 +456,16 @@
       
         
           
-            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>之前一直都是使用的(apache/nginx)反向代理做请求转发，前几天做微信企业号做单点认证时，调用微信api时，发现部分机器(uat)无法调用，了解后知道是内网策略原因，跨网段服务器之间需要开通防火墙，调用外网为统一的代理服务器，且需程序支持；于是便有想要深入了解下的想法</p>
-<h2 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h2><p>概念：是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。</p>
-<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><p>概念：反向代理（Reverse Proxy）方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端。</p>
-<h2 id="正向代理与反向代理的区别"><a href="#正向代理与反向代理的区别" class="headerlink" title="正向代理与反向代理的区别"></a>正向代理与反向代理的区别</h2><p><img src="../../images/代理.png" alt="正向代理与反向代理的区别"></p>
-<ul>
-<li>图侵删（图在v2ex上看到的）</li>
-</ul>
-<h2 id="javaWeb下代理请求的支持"><a href="#javaWeb下代理请求的支持" class="headerlink" title="javaWeb下代理请求的支持"></a>javaWeb下代理请求的支持</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public SimpleClientHttpRequestFactory httpClientFactory() &#123;</span><br><span class="line">        SimpleClientHttpRequestFactory httpRequestFactory = new SimpleClientHttpRequestFactory();</span><br><span class="line">        httpRequestFactory.setReadTimeout(wechatConfigProperties.getRestReadTimeout());</span><br><span class="line">        httpRequestFactory.setConnectTimeout(wechatConfigProperties.getRestConnectTimeout());</span><br><span class="line"></span><br><span class="line">        if(wechatConfigProperties.isEnabledProxy())&#123;</span><br><span class="line">            SocketAddress address = new InetSocketAddress(wechatConfigProperties.getProxyHost(), wechatConfigProperties.getProxyPort());</span><br><span class="line">            Proxy proxy = new Proxy(Proxy.Type.HTTP, address);</span><br><span class="line">            httpRequestFactory.setProxy(proxy);</span><br><span class="line">        &#125;</span><br><span class="line">        return httpRequestFactory;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">/**</span><br><span class="line">     * 访问外网的代理，给特定情况下使用，不由spring管理</span><br><span class="line">     * @return</span><br><span class="line">     * @author zhengxiaobin</span><br><span class="line">     */</span><br><span class="line">public RestTemplate restTemplate()&#123;</span><br><span class="line">        RestTemplate restTemplate = new RestTemplate(httpClientFactory());</span><br><span class="line">        return restTemplate;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-          
+          概述之前一直都是使用的(apache/nginx)反向代理做请求转发，前几天做微信企业号做单点认证时，调用微信api时，发现部分机器(uat)无法调用，了解后知道是内网策略原因，跨网段服务器之间需要开通防火墙，调用外网为统一的代理服务器，且需程序支持；于是便有想要深入了解下的想法
+正向代理概念：是一
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/14/正向代理-反向代理/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -611,59 +583,21 @@
       
         
           
-            <h1 id="渗透测试工具集"><a href="#渗透测试工具集" class="headerlink" title="渗透测试工具集"></a>渗透测试工具集</h1><h3 id="Acunetix-Web-Vulnerability-Scanner"><a href="#Acunetix-Web-Vulnerability-Scanner" class="headerlink" title="Acunetix Web Vulnerability Scanner"></a>Acunetix Web Vulnerability Scanner</h3><p>Web安全评估系统</p>
-<h3 id="AppScan"><a href="#AppScan" class="headerlink" title="AppScan"></a>AppScan</h3><p>Web安全评估系统</p>
-<h3 id="HttpWatch-professional"><a href="#HttpWatch-professional" class="headerlink" title="HttpWatch professional"></a>HttpWatch professional</h3><p>网页数据分析工具</p>
-<h3 id="Netcat"><a href="#Netcat" class="headerlink" title="Netcat"></a>Netcat</h3><p>端口连接工具</p>
-<h3 id="WireShark"><a href="#WireShark" class="headerlink" title="WireShark"></a>WireShark</h3><p>网络抓包工具</p>
-<h3 id="Nmap"><a href="#Nmap" class="headerlink" title="Nmap"></a>Nmap</h3><p>网络扫描探测工具</p>
-<h3 id="fiddler"><a href="#fiddler" class="headerlink" title="fiddler"></a>fiddler</h3><p>Web调试工具</p>
-<h3 id="Burpsuit"><a href="#Burpsuit" class="headerlink" title="Burpsuit"></a>Burpsuit</h3><p>渗透测试综合平台</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-<h1 id="问题-amp-解决方案"><a href="#问题-amp-解决方案" class="headerlink" title="问题&amp;解决方案"></a>问题&amp;解决方案</h1><h2 id="1-sql注入"><a href="#1-sql注入" class="headerlink" title="1. sql注入"></a>1. sql注入</h2><blockquote>
-<p>问题描述：sql注入，模糊查询时keyWord存在sql注入风险</p>
-<p>坑点：项目赶时间上线，在实现业务过程中，使用反射将sql<strong><em>类型为Class[]{String.class}</em></strong>接入Criteria中，再生成sql</p>
-</blockquote>
-<ul>
-<li>拼接sql原理：<br><img src="../../images/criteria拼接sql.png" alt="Criteria"></li>
-</ul>
-<h4 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h4><p>更换为上图中的红色方框原理</p>
-<h4 id="代码展示"><a href="#代码展示" class="headerlink" title="代码展示"></a>代码展示</h4><ul>
-<li>原拼接代码</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">     * 通过反射调用Criteria的addCriterion方法</span><br><span class="line">     * @param target</span><br><span class="line">     * @param where</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static Object addCondition(Object target, String where) &#123;</span><br><span class="line">        Class clz = target.getClass();</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            Method method = clz.getSuperclass().getDeclaredMethod</span><br><span class="line">                    (&quot;addCriterion&quot;, new Class[]&#123;String.class&#125;);</span><br><span class="line">            method.setAccessible(true);</span><br><span class="line">            method.invoke(target, new Object[]&#123;where&#125;);</span><br><span class="line">            method.setAccessible(false);</span><br><span class="line">        &#125; catch (NoSuchMethodException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return target;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>防sql注入拼接代码</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">    *</span><br><span class="line">    * @param target</span><br><span class="line">    * @param condition sql语句</span><br><span class="line">    * @param value 需要传入的值</span><br><span class="line">    * @param property 值的字段名称</span><br><span class="line">    * @return</span><br><span class="line">    */</span><br><span class="line">   public static Object addCondition(Object target,String condition, Object value,String property) &#123;</span><br><span class="line">       Class clz = target.getClass();</span><br><span class="line">       try &#123;</span><br><span class="line">           Method method = clz.getSuperclass().getDeclaredMethod</span><br><span class="line">                   (&quot;addCriterion&quot;, new Class[]&#123;String.class,Object.class,String.class&#125;);</span><br><span class="line">           method.setAccessible(true);</span><br><span class="line">           method.invoke(target,condition, value, property);</span><br><span class="line">           method.setAccessible(false);</span><br><span class="line">       &#125; catch (NoSuchMethodException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       return target;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<p>&nbsp;&nbsp;</p>
-<h2 id="2-跨站脚本攻击XXS"><a href="#2-跨站脚本攻击XXS" class="headerlink" title="2.跨站脚本攻击XXS"></a>2.跨站脚本攻击XXS</h2><blockquote>
-<p>问题描述：解决请求参数过滤，包括:</p>
-<ol>
-<li>Parameter、ParameterValues、Header</li>
-<li>body(坑点)</li>
-</ol>
-</blockquote>
-<h4 id="解决方案：-1"><a href="#解决方案：-1" class="headerlink" title="解决方案："></a>解决方案：</h4><blockquote>
-<p>重写请求继承HttpServletRequestWrapper，重写各个参数部分的方法，再由JsoupUtil过滤掉xxs非法标签。</p>
-</blockquote>
-<ol>
-<li>关于常规Parameter、ParameterValues、Header等的过滤比较简单，重写方法将参数逐个过滤。</li>
-<li><p>关于body中的参数过滤。</p>
-<p> 坑点：body流读取一次后，在方法调用时已关闭</p>
-<p> 解决方案：</p>
-<ul>
-<li>在构造方法中读取body流，并传递到外置参数中。</li>
-<li>创建ByteArrayInputStream读取参数中保存的body流数据，重写getInputStream()方法，其中read()里把调用ByteArrayInputStream.read()返回。</li>
-</ul>
-</li>
-</ol>
-<h4 id="代码展示-1"><a href="#代码展示-1" class="headerlink" title="代码展示"></a>代码展示</h4><h5 id="XssHttpServletRequestWrapper-请求重写类"><a href="#XssHttpServletRequestWrapper-请求重写类" class="headerlink" title="XssHttpServletRequestWrapper 请求重写类"></a>XssHttpServletRequestWrapper 请求重写类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 重写请求,用于过滤掉xxs非法参数</span><br><span class="line"> *</span><br><span class="line"> * @author zhengxiaobin</span><br><span class="line"> */</span><br><span class="line">public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper &#123;</span><br><span class="line"></span><br><span class="line">    HttpServletRequest orgRequest = null;</span><br><span class="line">    private boolean isIncludeRichText = true;</span><br><span class="line"></span><br><span class="line">    //存放body,避免body流读取一次后，在方法调用时已关闭</span><br><span class="line">    private final String body;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Constructs a request object wrapping the given request.</span><br><span class="line">     *</span><br><span class="line">     * @param request The request to wrap</span><br><span class="line">     * @throws IllegalArgumentException if the request is null</span><br><span class="line">     */</span><br><span class="line">    public XssHttpServletRequestWrapper(HttpServletRequest request, boolean isIncludeRichText) &#123;</span><br><span class="line">        super(request);</span><br><span class="line">        orgRequest = request;</span><br><span class="line">        this.isIncludeRichText = isIncludeRichText;</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        StringBuilder stringBuilder = new StringBuilder();</span><br><span class="line">        BufferedReader bufferedReader = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            InputStream inputStream = request.getInputStream();</span><br><span class="line">            if (inputStream != null) &#123;</span><br><span class="line">                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));</span><br><span class="line">                char[] charBuffer = new char[128];</span><br><span class="line">                int bytesRead = -1;</span><br><span class="line">                while ((bytesRead = bufferedReader.read(charBuffer)) &gt; 0) &#123;</span><br><span class="line">                    stringBuilder.append(charBuffer, 0, bytesRead);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                stringBuilder.append(&quot;&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (IOException ex) &#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            if (bufferedReader != null) &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    bufferedReader.close();</span><br><span class="line">                &#125; catch (IOException ex) &#123;</span><br><span class="line">                    ex.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        body = JsoupUtil.clean(stringBuilder.toString());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 覆盖getParameter方法，将参数名和参数值都做xss过滤。&lt;br/&gt;</span><br><span class="line">     * 如果需要获得原始的值，则通过super.getParameterValues(name)来获取&lt;br/&gt;</span><br><span class="line">     * getParameterNames,getParameterValues和getParameterMap也可能需要覆盖</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public String getParameter(String name) &#123;</span><br><span class="line">        Boolean flag = (&quot;content&quot;.equals(name) || name.endsWith(&quot;WithHtml&quot;));</span><br><span class="line">        if( flag &amp;&amp; !isIncludeRichText)&#123;</span><br><span class="line">            return super.getParameter(name);</span><br><span class="line">        &#125;</span><br><span class="line">        name = JsoupUtil.clean(name);</span><br><span class="line">        String value = super.getParameter(name);</span><br><span class="line">        if (StringUtils.isNotBlank(value)) &#123;</span><br><span class="line">            value = JsoupUtil.clean(value);</span><br><span class="line">        &#125;</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String[] getParameterValues(String name) &#123;</span><br><span class="line">        String[] arr = super.getParameterValues(name);</span><br><span class="line">        if(arr != null)&#123;</span><br><span class="line">            for (int i=0;i&lt;arr.length;i++) &#123;</span><br><span class="line">                arr[i] = JsoupUtil.clean(arr[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return arr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 覆盖getHeader方法，将参数名和参数值都做xss过滤。&lt;br/&gt;</span><br><span class="line">     * 如果需要获得原始的值，则通过super.getHeaders(name)来获取&lt;br/&gt;</span><br><span class="line">     * getHeaderNames 也可能需要覆盖</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public String getHeader(String name) &#123;</span><br><span class="line">        name = JsoupUtil.clean(name);</span><br><span class="line">        String value = super.getHeader(name);</span><br><span class="line">        if (StringUtils.isNotBlank(value)) &#123;</span><br><span class="line">            value = JsoupUtil.clean(value);</span><br><span class="line">        &#125;</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取最原始的request</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public HttpServletRequest getOrgRequest() &#123;</span><br><span class="line">        return orgRequest;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取最原始的request的静态方法</span><br><span class="line">     * @param req</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static HttpServletRequest getOrgRequest(HttpServletRequest req) &#123;</span><br><span class="line">        if (req instanceof XssHttpServletRequestWrapper) &#123;</span><br><span class="line">            return ((XssHttpServletRequestWrapper) req).getOrgRequest();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return req;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ServletInputStream getInputStream() throws IOException &#123;</span><br><span class="line">        //重新存放进去</span><br><span class="line">        final ByteArrayInputStream byteArrayInputStream = new     ByteArrayInputStream(body.getBytes());</span><br><span class="line">        ServletInputStream servletInputStream = new ServletInputStream() &#123;</span><br><span class="line">            public int read() throws IOException &#123;</span><br><span class="line">                return byteArrayInputStream.read();</span><br><span class="line">            &#125;</span><br><span class="line">            @Override</span><br><span class="line">            public boolean isFinished() &#123;</span><br><span class="line">                // TODO Auto-generated method stub</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            @Override</span><br><span class="line">            public boolean isReady() &#123;</span><br><span class="line">                // TODO Auto-generated method stub</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            @Override</span><br><span class="line">            public void setReadListener(ReadListener listener) &#123;</span><br><span class="line">                // TODO Auto-generated method stub</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        return servletInputStream;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public BufferedReader getReader() throws IOException &#123;</span><br><span class="line">        return new BufferedReader(new InputStreamReader(this.getInputStream()));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getBody() &#123;</span><br><span class="line">        return this.body;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="XSSFilter-XXS过滤器"><a href="#XSSFilter-XXS过滤器" class="headerlink" title="XSSFilter XXS过滤器"></a>XSSFilter XXS过滤器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 拦截防止xss注入</span><br><span class="line"> * 通过Jsoup过滤请求参数内的特定字符</span><br><span class="line"> *</span><br><span class="line"> * @author zhengxiaobin</span><br><span class="line"> */</span><br><span class="line">public class XSSFilter implements Filter &#123;</span><br><span class="line"></span><br><span class="line">    private static final Logger logger = LoggerFactory.getLogger(XSSFilter.class);</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 是否过滤富文本内容</span><br><span class="line">     */</span><br><span class="line">    private static boolean IS_INCLUDE_RICH_TEXT = true;</span><br><span class="line"></span><br><span class="line">    public List&lt;String&gt; excludes = new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void init(FilterConfig filterConfig) throws ServletException &#123;</span><br><span class="line"></span><br><span class="line">        if(logger.isDebugEnabled())&#123;</span><br><span class="line">            logger.debug(&quot;xss filter init ====================&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        String isIncludeRichText = filterConfig.getInitParameter(&quot;isIncludeRichText&quot;);</span><br><span class="line">        if(StringUtils.isNotBlank(isIncludeRichText))&#123;</span><br><span class="line">            IS_INCLUDE_RICH_TEXT = BooleanUtils.toBoolean(isIncludeRichText);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        String temp = filterConfig.getInitParameter(&quot;excludes&quot;);</span><br><span class="line">        if (temp != null) &#123;</span><br><span class="line">            String[] url = temp.split(&quot;,&quot;);</span><br><span class="line">            for (int i = 0; url != null &amp;&amp; i &lt; url.length; i++) &#123;</span><br><span class="line">                excludes.add(url[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException &#123;</span><br><span class="line">    </span><br><span class="line">        if(logger.isDebugEnabled())&#123;</span><br><span class="line">            logger.debug(&quot;xss filter is open&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        HttpServletRequest req = (HttpServletRequest) request;</span><br><span class="line">        HttpServletResponse resp = (HttpServletResponse) response;</span><br><span class="line">        if(handleExcludeURL(req, resp))&#123;</span><br><span class="line">            chain.doFilter(request, response);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        //转换成过滤xxs的请求</span><br><span class="line">        XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper((HttpServletRequest) request,IS_INCLUDE_RICH_TEXT);</span><br><span class="line">        chain.doFilter(xssRequest, response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private boolean handleExcludeURL(HttpServletRequest request, HttpServletResponse response) &#123;</span><br><span class="line">        if (excludes == null || excludes.isEmpty()) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        String url = request.getServletPath();</span><br><span class="line">        for (String pattern : excludes) &#123;</span><br><span class="line">            Pattern p = Pattern.compile(&quot;^&quot; + pattern);</span><br><span class="line">            Matcher m = p.matcher(url);</span><br><span class="line">            if (m.find()) &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="JsoupUtil-xss非法标签过滤工具类"><a href="#JsoupUtil-xss非法标签过滤工具类" class="headerlink" title="JsoupUtil xss非法标签过滤工具类"></a>JsoupUtil xss非法标签过滤工具类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * xss非法标签过滤工具类</span><br><span class="line"> * 过滤html中的xss字府</span><br><span class="line"> *</span><br><span class="line"> * @author zhengxiaobin</span><br><span class="line"> */</span><br><span class="line">public class JsoupUtil &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 使用自带的basicWithImages 白名单</span><br><span class="line">     * 允许的便签有a,b,blockquote,br,cite,code,dd,dl,dt,em,i,li,ol,p,pre,q,small,span,</span><br><span class="line">     * strike,strong,sub,sup,u,ul,img</span><br><span class="line">     * 以及a标签的href,img标签的src,align,alt,height,width,title属性</span><br><span class="line">     */</span><br><span class="line">    private static final Whitelist whitelist = Whitelist.basicWithImages();</span><br><span class="line"></span><br><span class="line">    /** 配置过滤化参数,不对代码进行格式化 */</span><br><span class="line">    private static final Document.OutputSettings outputSettings = new Document.OutputSettings().prettyPrint(false);</span><br><span class="line"></span><br><span class="line">    static &#123;</span><br><span class="line">        // 富文本编辑时一些样式是使用style来进行实现的</span><br><span class="line">        // 比如红色字体 style=&quot;color:red;&quot;</span><br><span class="line">        // 所以需要给所有标签添加style属性</span><br><span class="line">        whitelist.addAttributes(&quot;:all&quot;, &quot;style&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String clean(String content) &#123;</span><br><span class="line">        if(StringUtils.isNotBlank(content))&#123;</span><br><span class="line">            content = content.trim();</span><br><span class="line">        &#125;</span><br><span class="line">        return Jsoup.clean(content, &quot;&quot;, whitelist, outputSettings);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws IOException &#123;</span><br><span class="line">        String text = &quot;   &lt;a href=\&quot;http://www.baidu.com/a\&quot; onclick=\&quot;alert(1);\&quot;&gt;sss&lt;/a&gt;&lt;script&gt;alert(0);&lt;/script&gt;sss   &quot;;</span><br><span class="line">        System.out.println(clean(text));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="注册过滤器"><a href="#注册过滤器" class="headerlink" title="注册过滤器"></a>注册过滤器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class XssConfig &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 注册xxs过滤器</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    @Bean</span><br><span class="line">    public FilterRegistrationBean xssFilterRegistrationBean() &#123;</span><br><span class="line">        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();</span><br><span class="line">        filterRegistrationBean.setFilter(new XSSFilter());</span><br><span class="line">        filterRegistrationBean.setOrder(1);</span><br><span class="line">        filterRegistrationBean.setEnabled(true);</span><br><span class="line">        filterRegistrationBean.addUrlPatterns(&quot;/*&quot;);</span><br><span class="line">        Map&lt;String, String&gt; initParameters = Maps.newHashMap();</span><br><span class="line">        initParameters.put(&quot;excludes&quot;, &quot;/favicon.ico,/img/*,/js/*,/css/*&quot;);</span><br><span class="line">        initParameters.put(&quot;isIncludeRichText&quot;, &quot;true&quot;);</span><br><span class="line">        filterRegistrationBean.setInitParameters(initParameters);</span><br><span class="line">        return filterRegistrationBean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
+          渗透测试工具集Acunetix Web Vulnerability ScannerWeb安全评估系统
+AppScanWeb安全评估系统
+HttpWatch professional网页数据分析工具
+Netcat端口连接工具
+WireShark网络抓包工具
+Nmap网络扫描探测工具
+fiddlerWe
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/07/渗透测试-解决方案/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -781,8 +715,15 @@
       
         
           
-            <h2 id="加密算法"><a href="#加密算法" class="headerlink" title="加密算法"></a>加密算法</h2><h2 id="单向加密"><a href="#单向加密" class="headerlink" title="单向加密"></a>单向加密</h2><h2 id="对称密钥加密"><a href="#对称密钥加密" class="headerlink" title="对称密钥加密"></a>对称密钥加密</h2><h2 id="非对称密钥加密"><a href="#非对称密钥加密" class="headerlink" title="非对称密钥加密"></a>非对称密钥加密</h2>
+          加密算法单向加密对称密钥加密非对称密钥加密
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/06/encrypt/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -900,8 +841,15 @@
       
         
           
-            
           
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/06/webSocket/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1019,9 +967,16 @@
       
         
           
-            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>最近在</p>
+          概述最近在
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/05/sso/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1161,186 +1116,33 @@
       
         
           
-            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>最近觉得有必要把过往的学习体系整理一番，以便自我省视和后续进阶，随便弄个博客写写东西</p>
-<h2 id="技术"><a href="#技术" class="headerlink" title="技术"></a>技术</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><ul>
-<li>基础知识</li>
-<li>进阶<ol>
-<li>jvm调优</li>
-</ol>
-</li>
-<li>jvm语言<ol>
-<li>groovy</li>
-<li>scala</li>
-</ol>
-</li>
-</ul>
-<h3 id="golang"><a href="#golang" class="headerlink" title="golang"></a>golang</h3><h3 id="spring系列"><a href="#spring系列" class="headerlink" title="spring系列"></a>spring系列</h3><ul>
-<li>springMvc</li>
-<li>springBoot</li>
-<li>springCloud</li>
-</ul>
-<h3 id="docker-amp-amp-k8s"><a href="#docker-amp-amp-k8s" class="headerlink" title="docker &amp;&amp; k8s"></a>docker &amp;&amp; k8s</h3><h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><ul>
-<li>微服务<ol>
-<li>springCloud系列</li>
-<li></li>
-</ol>
-</li>
-<li>单点登录</li>
-</ul>
-<h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><ul>
-<li>redis(redis cluster)</li>
-<li>activeMQ</li>
-<li>kafka</li>
-<li>zookeeper</li>
-<li>liquibase</li>
-</ul>
-<h3 id="运维"><a href="#运维" class="headerlink" title="运维"></a>运维</h3><ul>
-<li>监控</li>
-</ul>
-<ol>
-<li>Prometheus</li>
-<li>Grafana</li>
-</ol>
-<ul>
-<li>日志收集</li>
-</ul>
-<ol>
-<li>Fluentd + Elasticsearch + Kibana</li>
-</ol>
-<h3 id="持续交付工具链"><a href="#持续交付工具链" class="headerlink" title="持续交付工具链"></a>持续交付工具链</h3><ul>
-<li>maven + gitlab + jenkins</li>
-<li>maven + gitlab + harbor + openshift</li>
-</ul>
-<h2 id="业务"><a href="#业务" class="headerlink" title="业务"></a>业务</h2><h3 id="融资租赁"><a href="#融资租赁" class="headerlink" title="融资租赁"></a>融资租赁</h3><h3 id="电商"><a href="#电商" class="headerlink" title="电商"></a>电商</h3><h3 id="商业地产"><a href="#商业地产" class="headerlink" title="商业地产"></a>商业地产</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
+          概述最近觉得有必要把过往的学习体系整理一番，以便自我省视和后续进阶，随便弄个博客写写东西
+技术java
+基础知识
+进阶
+jvm调优
 
 
-    
-      
+jvm语言
+groovy
+scala
 
-  
 
-  
-  
-  
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/28/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ParanoidHubert">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/28/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-28T09:49:19+08:00">
-                2018-02-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
+golangpython系列框架
+mybatis
+hibernate
+spring
+springMvc
+springBo
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/01/postName/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1424,7 +1226,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1446,7 +1248,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1456,6 +1258,22 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ParanoidHubert" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:hubert12138@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
           
 
           

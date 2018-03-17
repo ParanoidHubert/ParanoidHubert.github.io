@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="单体应用,分布式,前后端分离,微服务," />
+  <meta name="keywords" content="java,spring,单体应用,分布式,前后端分离,微服务,springCloud," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本框架，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。  最初的架构 用户门户（网站） 单体大应用后台 敏感数据EBS 会员数据siebel   在这简单的架构下运转着自己的业务，这时，我还未进入这个项目中  目前架构 用户门户 网站，app、微信企业号(coding) 前后端分离规划   单体大">
-<meta name="keywords" content="单体应用,分布式,前后端分离,微服务">
+<meta name="description" content="想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本思路，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。  最初的架构 用户门户（网站） 单体大应用后台（内部管理系统） 敏感数据EBS 会员数据siebel   在这简单的架构下运转着自己的业务，这时，我还未进入这个项目中  目前架构 用户门户 网站，app、微信企业号(coding) 前后端分离">
+<meta name="keywords" content="java,spring,单体应用,分布式,前后端分离,微服务,springCloud">
 <meta property="og:type" content="article">
 <meta property="og:title" content="架构的演进">
 <meta property="og:url" content="http://yoursite.com/2018/03/16/架构的演进/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本框架，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。  最初的架构 用户门户（网站） 单体大应用后台 敏感数据EBS 会员数据siebel   在这简单的架构下运转着自己的业务，这时，我还未进入这个项目中  目前架构 用户门户 网站，app、微信企业号(coding) 前后端分离规划   单体大">
+<meta property="og:description" content="想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本思路，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。  最初的架构 用户门户（网站） 单体大应用后台（内部管理系统） 敏感数据EBS 会员数据siebel   在这简单的架构下运转着自己的业务，这时，我还未进入这个项目中  目前架构 用户门户 网站，app、微信企业号(coding) 前后端分离">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-17T13:12:15.000Z">
+<meta property="og:updated_time" content="2018-03-17T15:06:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="架构的演进">
-<meta name="twitter:description" content="想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本框架，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。  最初的架构 用户门户（网站） 单体大应用后台 敏感数据EBS 会员数据siebel   在这简单的架构下运转着自己的业务，这时，我还未进入这个项目中  目前架构 用户门户 网站，app、微信企业号(coding) 前后端分离规划   单体大">
+<meta name="twitter:description" content="想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本思路，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。  最初的架构 用户门户（网站） 单体大应用后台（内部管理系统） 敏感数据EBS 会员数据siebel   在这简单的架构下运转着自己的业务，这时，我还未进入这个项目中  目前架构 用户门户 网站，app、微信企业号(coding) 前后端分离">
 
 
 
@@ -321,11 +321,11 @@
 
       
         <blockquote>
-<p>想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本框架，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。</p>
+<p>想想自己在目前项目已经呆了1年半了，也经历并参与了一些架构调整，所以打算整理一下基本思路，因此该文档多为思路整理，只有自己练手的与工作无关的代码会贴上来。</p>
 </blockquote>
 <h2 id="最初的架构"><a href="#最初的架构" class="headerlink" title="最初的架构"></a>最初的架构</h2><ul>
 <li>用户门户（网站）</li>
-<li>单体大应用后台</li>
+<li>单体大应用后台（内部管理系统）</li>
 <li>敏感数据EBS</li>
 <li>会员数据siebel</li>
 </ul>
@@ -338,14 +338,18 @@
 <li>前后端分离规划</li>
 </ol>
 </li>
+</ul>
+<ul>
 <li>单体大应用后台<ol>
-<li>按业务拆分为多个子应用</li>
+<li>按业务拆分为多个子应用(应用间通过api互相调用，后续引入oauth做接口认证)</li>
 <li>再由一个入口应用接入各个子应用，感知上依然为单应用-尽量降低用户习惯影响</li>
 <li>被子应用依赖的授权认证依赖包core（调用用户信息认证，接口token认证）</li>
 <li>独立的用户信息应用（可手工增删改用户，但多为接口调用）</li>
 <li>增加oauth-server，作为各个应用的token凭证分发</li>
 </ol>
 </li>
+</ul>
+<ul>
 <li>敏感数据EBS</li>
 <li>会员数据sieble<ol>
 <li>中台门户</li>
@@ -356,13 +360,26 @@
 <blockquote>
 <p>刚进项目时(2016.08)由于了解得不多，也是个新人，这个情况下，当时我在各个子应用中流转，包括用户门户、后台子应用、会员中台门户等，然后后面也参与到了做前后端分离的支撑工作，独立oauth-server的开发工作，虽然授权认证依赖包core对于token的认证并非我完成，但后续也接手了，还有入口应用等。</p>
 </blockquote>
-<h2 id="微服务的架构"><a href="#微服务的架构" class="headerlink" title="微服务的架构"></a>微服务的架构</h2><ul>
-<li>之前自己业余时间基于springCloud设想的微服务架构 -&gt; <a href="https://github.com/springCloudTest/DocSpringCloud" target="_blank" rel="noopener">here</a></li>
+<h2 id="微服务的架构"><a href="#微服务的架构" class="headerlink" title="微服务的架构"></a>微服务的架构</h2><blockquote>
+<p>对于已被拆分的子应用间通过api调用，越来越多子应用互相间通过api的调用使得自应用间接口混乱不堪<code>&gt;</code>需要服务注册，并且高可用，然后就被告知了后续转型微服务，并引入devops工具链&amp;思想。</p>
+</blockquote>
+<ul>
+<li><p>目前接触了下正在从sieble拆分的子应用实施springCloud微服务架构，其中也正在考虑用户信息在业务微服务中的传递问题，然后解决方案有：</p>
+<ol>
+<li>redis公共服务存放登录过的用户信息，key值为登录时生成的uuid，存放在cookie中（需要新增<code>redis公共服务</code>）  &#x2714;</li>
+<li><p>在网上看到的关于springCloud Security支持的token中继原理，将token附带在header中（需要<code>集成oauth-server</code>，<code>用户服务</code> <strong>or</strong> <code>公共服务redis存放用户信息</code>，<code>集成springCloud Security</code>） &#x2716;    </p>
+<p><strong><em>最终因为项目工期的原因选择了方案1，但个人觉得方案2较为完整，可作为后续迭代</em></strong></p>
+</li>
+</ol>
+</li>
+<li><p>之前自己业余时间基于springCloud设想的微服务架构 &#x1F449; <a href="https://github.com/springCloudTest/DocSpringCloud" target="_blank" rel="noopener">here</a>    </p>
+</li>
+</ul>
+<h2 id="对于架构的演进看法"><a href="#对于架构的演进看法" class="headerlink" title="对于架构的演进看法"></a>对于架构的演进看法</h2><ul>
+<li>多为在网上整合别人的演进，并收录一些自己认可的方案</li>
+<li>&#x1F449; <a href="http://blog.csdn.net/cloud_architect/article/details/72698056" target="_blank" rel="noopener">遗留系统的微服务改造</a></li>
 </ul>
 <blockquote>
-<p>对于已被拆分的子应用间通过api调用，越来越多子应用互相间通过api的调用使得自应用间接口混乱不堪<code>&gt;</code>需要服务注册，并且高可用，然后就被告知了可以转型微服务</p>
-</blockquote>
-<h2 id="对于架构的演进看法"><a href="#对于架构的演进看法" class="headerlink" title="对于架构的演进看法"></a>对于架构的演进看法</h2><blockquote>
 <p>TODO</p>
 </blockquote>
 
@@ -382,6 +399,10 @@
       
         <div class="post-tags">
           
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/spring/" rel="tag"># spring</a>
+          
             <a href="/tags/单体应用/" rel="tag"># 单体应用</a>
           
             <a href="/tags/分布式/" rel="tag"># 分布式</a>
@@ -389,6 +410,8 @@
             <a href="/tags/前后端分离/" rel="tag"># 前后端分离</a>
           
             <a href="/tags/微服务/" rel="tag"># 微服务</a>
+          
+            <a href="/tags/springCloud/" rel="tag"># springCloud</a>
           
         </div>
       
@@ -490,7 +513,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -512,7 +535,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -522,6 +545,22 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ParanoidHubert" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:hubert12138@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
           
 
           
